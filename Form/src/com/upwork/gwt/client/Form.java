@@ -2,6 +2,7 @@ package com.upwork.gwt.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.builder.shared.SelectBuilder;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.DOM;
@@ -21,30 +22,42 @@ public class Form implements EntryPoint {
         final VerticalPanel mainPanel = new VerticalPanel();
         final Button submitButton = new Button("Send");
         final FormPanel testForm = new FormPanel("Test Form");
-        final TextBox name = new TextBox();
-        final ListBox jobBox = new ListBox();
+        final TextBox nameInput = new TextBox();
+        final ListBox jobSelectBox = new ListBox();
 
 
+        //setting the elements of the form
+        nameInput.setName("name");
+        nameInput.setText("Enter your name");
 
-/*        button.addClickHandler(event -> {
-            if (label.getText().equals("")) {
-                gwtService.App.getInstance().getMessage("Hello, World!", new MyAsyncCallback(label));
-            } else {
-                label.setText("");
+        VerticalPanel panel = new VerticalPanel();
+        panel.setSpacing(10);
+        testForm.setWidget(panel);
+
+        panel.add(new Label("Name"));
+        panel.add(nameInput);
+
+        jobSelectBox.setName("job");
+        jobSelectBox.addItem("Tinker", "tinker");
+        jobSelectBox.addItem("Taylor", "taylor");
+        jobSelectBox.addItem("Sailor", "sailor");
+
+        panel.add(new Label("Job"));
+        panel.add(jobSelectBox);
+
+        RootPanel.get("submitForm").add(testForm);
+
+        panel.add(new Button("Submit", (ClickEvent event) -> {
+            testForm.submit();
+        }));
+
+        // Add an event handler to the form.
+        testForm.addSubmitHandler(event -> {
+            if (nameInput.getText().length() == 0) {
+                Window.alert("The text box must not be empty");
+                event.cancel();
             }
         });
-*/
-        // Assume that the host HTML has elements defined whose
-        // IDs are "slot1", "slot2".  In a real app, you probably would not want
-        // to hard-code IDs.  Instead, you could, for example, search for all
-        // elements with a particular CSS class and replace them with widgets.
-        //
-        mainPanel.add(name);
-        mainPanel.add(jobBox);
-        mainPanel.add(submitButton);
-
-        RootPanel.get("submitForm").add(mainPanel);
-
     }
 
     private static class MyAsyncCallback implements AsyncCallback<String> {
