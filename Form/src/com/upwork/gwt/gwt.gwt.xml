@@ -1,15 +1,26 @@
-<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0//EN"
-        "http://google-web-toolkit.googlecode.com/svn/releases/2.0/distro-source/core/src/gwt-module.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+
 <module rename-to="gwt">
 
     <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name='com.google.gwt.user.RemoteService'/>
     <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+    <inherits name='org.hibernate.validator.HibernateValidator'/>
 
-    <!-- Specify the app entry point class.                   -->
     <entry-point class='com.upwork.gwt.client.Form'/>
 
+    <source path='client'/>
+    <source path='model'/>
 
     <!-- Specify the app servlets.                   -->
     <servlet path='/gwtService' class='com.upwork.gwt.server.gwtServiceImpl'/>
 
+    <set-configuration-property name="CssResource.enableGss" value="true"/>
+    <set-configuration-property name="CssResource.gssDefaultInUiBinder" value="true"/>
+
+   <!-- <replace-with
+            class="com.upwork.gwt.client.validator.PersonValidatorFactory">
+        <when-type-is class="javax.validation.ValidatorFactory"/>
+    </replace-with>-->
 </module>

@@ -13,4 +13,8 @@
         <servlet-name>gwt gwtService</servlet-name>
         <url-pattern>/gwt/gwtService</url-pattern>
     </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>Form.html</welcome-file>
+    </welcome-file-list>
 </web-app>

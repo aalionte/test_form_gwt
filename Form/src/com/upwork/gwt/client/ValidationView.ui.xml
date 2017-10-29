@@ -1,6 +1,6 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+             xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:d="http://www.w3.org/1999/html">
     <ui:style type="com.upwork.gwt.client.ValidationView.CustomStyle">
 
         html, body {
@@ -23,10 +23,14 @@
 
         .panel {
             position: absolute;
-            left: 50%;
-            width: 14em;
-            margin-left: -7em;
-            margin-top: 50px;
+            left: 310px;
+            top: 100px;
+            width: 260px;
+            height: 260px;
+            font-size: 13px;
+            font-style: normal;
+            font-family: 'Arial Regular';
+            font-weight: 400;
         }
 
         .error {
@@ -37,19 +41,30 @@
             margin: 15px 0 6px;
         }
 
+        .gwt-ListBox {
+            display: block;
+        }
+
+        .gwt-CheckBox {
+            display: block;
+        }
+        
     </ui:style>
     <g:VerticalPanel styleName="{style.panel}">
+        <g:HTMLPanel>Test Form</g:HTMLPanel>
         <g:FlowPanel>
             <g:Label>Name</g:Label>
             <g:TextBox ui:field="nameField">GWT User</g:TextBox>
             <g:Label>Job</g:Label>
             <g:ListBox ui:field="jobField">
-
+                <g:item>Taylor</g:item>
+                <g:item>Sailor</g:item>
             </g:ListBox>
             <g:CheckBox ui:field="terms">Please accept terms and conditions</g:CheckBox>
         </g:FlowPanel>
         <g:Button styleName="{style.send}" ui:field="sendButton">Send</g:Button>
-        <g:Label styleName="{style.error}" ui:field="errorLabel"/>
 
+        <g:Label styleName="{style.error}" ui:field="errorLabel"/>
+        <g:Label styleName="{style.error}" ui:field="checkBoxErrorLabel"/>
     </g:VerticalPanel>
 </ui:UiBinder>
