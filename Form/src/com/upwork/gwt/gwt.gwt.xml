@@ -6,7 +6,6 @@
     <inherits name='com.google.gwt.user.RemoteService'/>
     <inherits name='com.google.gwt.user.User'/>
     <inherits name='com.google.gwt.user.theme.standard.Standard'/>
-    <inherits name='org.hibernate.validator.HibernateValidator'/>
 
     <entry-point class='com.upwork.gwt.client.Form'/>
 
@@ -19,8 +18,8 @@
     <set-configuration-property name="CssResource.enableGss" value="true"/>
     <set-configuration-property name="CssResource.gssDefaultInUiBinder" value="true"/>
 
-   <!-- <replace-with
-            class="com.upwork.gwt.client.validator.PersonValidatorFactory">
+    <inherits name='org.hibernate.validator.HibernateValidator'/>
+    <replace-with class="com.upwork.gwt.client.EmployeeValidator">
         <when-type-is class="javax.validation.ValidatorFactory"/>
-    </replace-with>-->
+    </replace-with>
 </module>

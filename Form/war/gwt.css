@@ -5,6 +5,76 @@ h1 {
     font-weight: bold;
     text-align: center;
 }
+
 body, td, a, div, .p {
     font-family: arial, sans-serif
+}
+
+#mainPanel {
+    font-size: 13px;
+    font-style: normal;
+    font-family: 'Arial Regular';
+    font-weight: 400;
+    border: 1px solid lightgray;
+    background: #fff;
+    line-height: normal;
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
+    border-radius: 15px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+#name {
+    background: url(images/newwindow.gif) no-repeat scroll 7px 7px;
+    padding-left: 30px;
+    height: 30px;
+}
+
+select {
+    background: url(images/u38.png) no-repeat scroll 7px 12px;
+    border: 3px solid #E6E6E6;
+    border-radius: 0;
+    font-weight: 400;
+    color: inherit;
+    padding: 11px 35px;
+    line-height: normal;
+    transition: border-color 0.2s ease,
+    outline 0.2s ease;
+    -webkit-appearance: none;
+    width: 200px;
+}
+
+option:first-child {
+    display: none;
+}
+
+.gwt-Button {
+    background: url(images/u30.png);
+    border: none;
+    height: 35px;
+    width: 220px;
+    color: white;
+    font-size: 18px;
+    padding: 0;
+    border: none;
+}
+
+.error {
+    position: relative;
+    margin-bottom: 10px;
+    left: 40%;
+    top: 391px;
+    z-index: 10003;
+    width: 260px;
+    height: 35px;
+    background: red;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
 }
