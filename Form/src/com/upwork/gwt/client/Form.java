@@ -3,6 +3,7 @@ package com.upwork.gwt.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
 /**
@@ -13,7 +14,8 @@ public class Form implements EntryPoint {
     /**
      * This is the entry point method.
      */
-    final VerticalPanel mainPanel = new VerticalPanel();
+    final VerticalPanel wrapPanel = new VerticalPanel();
+    final VerticalPanel mainFormPanel = new VerticalPanel();
     final Button submitButton = new Button("SEND  \u2192");
     final FormPanel testForm = new FormPanel("Test Form");
     final TextBox nameInput = new TextBox();
@@ -21,29 +23,37 @@ public class Form implements EntryPoint {
     final CheckBox termsCheckBox = new CheckBox();
 
     public void onModuleLoad() {
+        wrapPanel.getElement().setPropertyString("id", "mainPanel");
 
-        //setting the elements of the form
-        createTextBox(nameInput);
+        HTML title = new HTML("<div class='title'>Test Form</div>");
+        wrapPanel.add(title);
 
         createForm();
 
-        mainPanel.getElement().setPropertyString("id", "mainPanel");
+        mainFormPanel.getElement().setPropertyString("id", "formPanel");
 
-        testForm.getElement().setPropertyString("id", "testForm");
-//        mainPanel.add(new DivElement().setInnerHTML("Test Form"));
-        mainPanel.add(testForm);
+        mainFormPanel.add(testForm);
 
-        RootPanel.get().add(mainPanel);
+        wrapPanel.add(mainFormPanel);
 
-        createErrroContainers();
-        submitButton.addClickHandler(new ButtonAction());
+        createErrorContainers();
+
+        RootPanel.get().add(wrapPanel);
+
+        submitButton.addClickHandler(event -> {
+            if (!FormValidation.isFormValid(nameInput, jobSelectBox, termsCheckBox)) {
+                event.preventDefault();
+            }
+        });
     }
 
-    private void createErrroContainers() {
-        HTML fillInError = new HTML("<div class='error' id='fillIn'>Please fill in all fields<div>");
-        HTML checkError = new HTML("<div class='error' id='check'>Please check the checkbox</div");
-        RootPanel.get().add(fillInError);
-        RootPanel.get().add(checkError);
+    private void createErrorContainers() {
+        HTML fillInError = new HTML("<div class='error hidden' id='fillIn'>Please fill in all fields<div>");
+        HTML checkError = new HTML("<div class='error hidden' id='check'>Please check the checkbox</div");
+        VerticalPanel errorPanel = new VerticalPanel();
+        errorPanel.add(fillInError);
+        errorPanel.add(checkError);
+        wrapPanel.add(errorPanel);
     }
 
     private void createForm() {
@@ -52,6 +62,7 @@ public class Form implements EntryPoint {
         testForm.setWidget(panel);
 
         panel.add(new Label("Name"));
+        createTextBox(nameInput);
         panel.add(nameInput);
 
         createSelectBox(panel);
@@ -61,6 +72,7 @@ public class Form implements EntryPoint {
         panel.add(termsCheckBox);
 
         panel.add(submitButton);
+        testForm.getElement().setPropertyString("id", "testForm");
     }
 
     private void createTermsCheckbox() {
