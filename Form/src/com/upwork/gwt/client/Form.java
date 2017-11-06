@@ -1,10 +1,13 @@
 package com.upwork.gwt.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
+import com.upwork.gwt.server.gwtServiceImpl;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>
@@ -23,15 +26,42 @@ public class Form implements EntryPoint {
     final CheckBox termsCheckBox = new CheckBox();
 
     public void onModuleLoad() {
-        wrapPanel.getElement().setPropertyString("id", "mainPanel");
+        setFormCSSProperties();
 
-        HTML title = new HTML("<div class='title'>Test Form</div>");
-        wrapPanel.add(title);
+        addTitle();
 
         createForm();
 
-        mainFormPanel.getElement().setPropertyString("id", "formPanel");
+        addRequiredElements();
 
+        submitButton.addClickHandler(event -> {
+            if (!FormValidation.isFormValid(nameInput, jobSelectBox, termsCheckBox)) {
+                event.preventDefault();
+            } else {
+                gwtServiceAsync gwtService = (gwtServiceAsync) GWT.create(com.upwork.gwt.client.gwtService.class);
+                gwtService.getMessage(nameInput.getValue(), new AsyncCallback<String>() {
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        Window.alert("Failed to send message");
+                    }
+
+                    @Override
+                    public void onSuccess(String result) {
+                        Window.alert(result);
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void setFormCSSProperties() {
+        wrapPanel.getElement().setPropertyString("id", "mainPanel");
+
+        mainFormPanel.getElement().setPropertyString("id", "formPanel");
+    }
+
+    private void addRequiredElements() {
         mainFormPanel.add(testForm);
 
         wrapPanel.add(mainFormPanel);
@@ -39,12 +69,11 @@ public class Form implements EntryPoint {
         createErrorContainers();
 
         RootPanel.get().add(wrapPanel);
+    }
 
-        submitButton.addClickHandler(event -> {
-            if (!FormValidation.isFormValid(nameInput, jobSelectBox, termsCheckBox)) {
-                event.preventDefault();
-            }
-        });
+    private void addTitle() {
+        HTML title = new HTML("<div class='title'>Test Form</div>");
+        wrapPanel.add(title);
     }
 
     private void createErrorContainers() {
@@ -103,6 +132,3 @@ public class Form implements EntryPoint {
         nameInput.getElement().setPropertyString("placeholder", "Enter your name");
     }
 }
-
-
-

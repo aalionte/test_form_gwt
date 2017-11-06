@@ -11,6 +11,7 @@
 
     <source path='client'/>
     <source path='model'/>
+    <source path="server"/>
 
     <!-- Specify the app servlets.                   -->
     <servlet path='/gwtService' class='com.upwork.gwt.server.gwtServiceImpl'/>

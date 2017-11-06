@@ -1,17 +1,13 @@
 package com.upwork.gwt.client;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
+import com.upwork.gwt.client.validator.NameValidator;
+import com.upwork.gwt.client.validator.Validator;
 
 
-/**
- * Created by Admin on 30-Oct-17.
- */
 public class FormValidation {
 
 
@@ -52,7 +48,8 @@ public class FormValidation {
     }
 
     private static boolean isNameValid(TextBox nameInput) {
-        if (nameInput.getValue().trim().length() == 0) {
+        Validator validator = new NameValidator();
+        if (!validator.validate(nameInput.getValue())) {
             nameInput.getElement().addClassName("selectionError");
             addValidation("fillIn");
             return false;
